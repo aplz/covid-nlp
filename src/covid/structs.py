@@ -21,16 +21,6 @@ class Paragraph:
 
 
 @dataclass
-class Abstract:
-    paragraphs: List[Paragraph] = field(default_factory=list)
-
-
-@dataclass
-class BodyText:
-    paragraphs: List[Paragraph] = field(default_factory=list)
-
-
-@dataclass
 class MetaData:
     title: str = None
     authors: List[Author] = field(default_factory=list)
@@ -40,8 +30,8 @@ class MetaData:
 class Paper:
     paper_id: str = None
     metadata: MetaData = None
-    abstract: Abstract = None
-    body_text: BodyText = None
+    abstract: List[Paragraph] = field(default_factory=list)
+    body_text: List[Paragraph] = field(default_factory=list)
     bib_entries: Dict = field(default_factory=dict)
     ref_entries: Dict = field(default_factory=dict)
     back_matter: List[Dict] = field(default_factory=list)
