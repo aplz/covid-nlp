@@ -2,3 +2,5 @@ env
 data
 .idea
 __pycache__
+*egg*
+.ipynb_checkpoints
