@@ -20,7 +20,7 @@ setuptools.setup(
     author="Anja Pilz",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/aplz/kaggle-covid",
+    url="https://github.com/aplz/covid-nlp",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -1,1 +1,3 @@
-# kaggle-covid
+# covid-nlp
+
+setup: run `install -e .`
