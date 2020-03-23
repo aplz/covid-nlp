@@ -2,23 +2,28 @@ import json
 from pathlib import Path
 from typing import List
 
-from covid import DATA_DIR, logger
+from dacite import from_dict
+
+from covid import logger
 from covid.structs import Paper
 
 
-def read_data(path: Path) -> List[Paper]:
+def read_data(path: Path, limit: int = 0) -> List[Paper]:
+    """Import raw data into a list of paper objects.
+
+    Args:
+        path: the path to the raw data.
+        limit: upper bound on the number of papers to import.
+
+    Returns:
+        the list of imported papers.
+    """
     corpus = []
-    for file in path.glob("*.json"):
-        paper = Paper(**(json.load(open(file, 'rb'))))
+    for file in path.glob("**/*.json"):
+        dict_ = json.load(open(file.as_posix(), 'rb'))
+        paper = from_dict(data_class=Paper, data=dict_)
         corpus.append(paper)
-    logger.info(f"Read {corpus} files from {path}.")
+        if 0 < limit <= len(corpus):
+            break
+    logger.info(f"Read {len(corpus)} files from {path}.")
     return corpus
-
-
-if __name__ == '__main__':
-
-    biorxiv_dir: Path = DATA_DIR / "CORD/2020-03-13/biorxiv_medrxiv/biorxiv_medrxiv/"
-    corpus = read_data(biorxiv_dir)
-
-    for paper in corpus:
-        print(paper)
